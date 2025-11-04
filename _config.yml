@@ -1,0 +1,14 @@
+title: "The Intuitive Machine"
+description: "Thoughts and Stories"
+author: "LuaGeeko"
+theme: minima
+show_excerpts: true
+paginate: 5
+
+# URLs
+url: "https://luaGeeko.github.io"
+baseurl: ""
+
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
