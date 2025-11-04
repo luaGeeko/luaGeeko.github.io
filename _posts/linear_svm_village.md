@@ -184,3 +184,9 @@ SVM replies *“Exactly! When w points in the opposite direction, the decision b
 You can find the proper code for the above here https://github.com/luaGeeko/MediumMLToons/blob/main/SVM_tutorial.ipynb.
 
 Now wrapping up Part 1, where we laid the foundation by understanding the **functional margin** and **geometric margin** — two crucial concepts that help us measure how well our Support Vector Machine (SVM) separates classes with maximum confidence. In the next part, we’ll take this a step further and explore how to **optimize** the decision boundary to, introduce the role of constraints in this optimization, and uncover the difference between **hard and soft margins** — essential ideas in SVMs.
+
+© 2025 Shruti Verma. All rights reserved.
+
+This blog and its contents are protected under the Creative Commons
+Attribution-NonCommercial-NoDerivatives 4.0 International License.
+See [LICENSE](LICENSE) for details.
