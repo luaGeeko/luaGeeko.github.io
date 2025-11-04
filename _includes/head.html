@@ -1,0 +1,20 @@
+<!-- Custom head overrides for MathJax -->
+
+<!-- Keep the default Minima head content -->
+{% if site.theme == "minima" %}
+  {% include head.html %}
+{% endif %}
+
+<!-- MathJax support -->
+<script>
+  MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']]
+    },
+    options: {
+      skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+  };
+</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
