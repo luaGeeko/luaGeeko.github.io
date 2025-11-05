@@ -3,7 +3,9 @@ layout: post
 title: "The untold story of SVM: A Village Divided (Part 1)"
 date: 2025-11-04 10:00:00 +0000
 tags: [svm, machine learning]
+excerpt: "A village split in two, a line drawn with purpose—welcome to the world of SVMs."
 ---
+
 
 >*This post reimagines the mechanics of Support Vector Machines (SVM) through a story-driven metaphor of a village divided. Beyond the narrative, we dive into the intuition behind linear SVMs — how they construct a hyperplane that maximizes the geometric margin between two classes. We explain the roles of support vectors, the functional margin, and how the direction vector w governs the orientation and classification confidence. Whether you’re a beginner or brushing up on fundamentals, this piece offers a conceptual bridge between storytelling and math.*
 
