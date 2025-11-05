@@ -1,4 +1,27 @@
-<!-- MathJax support -->
+{%- comment -%}
+  A safe head include:
+  - ensures theme stylesheet is loaded
+  - adds MathJax without removing theme behavior
+{%- endcomment -%}
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>{{ page.title | default: site.title }}</title>
+
+{%- comment -%}
+  Ensure theme's main CSS is loaded. Minima generates /assets/main.css.
+{%- endcomment -%}
+<link rel="stylesheet" href="{{ '/assets/main.css' | relative_url }}">
+
+{%- comment -%}
+  Any additional head content the theme might expect:
+  (favicon, meta tags, etc. can be added here if desired)
+{%- endcomment -%}
+
+{%- comment -%}
+  MathJax — safe snippet. Keeps inline $...$ and $$...$$ behavior.
+{%- endcomment -%}
 <script>
   MathJax = {
     tex: {
