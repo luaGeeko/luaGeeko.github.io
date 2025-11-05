@@ -5,8 +5,6 @@ date: 2025-11-04 10:00:00 +0000
 tags: [svm, machine learning]
 ---
 
-# The untold story of SVM: A Village Divided (Part 1)
-
 >*This post reimagines the mechanics of Support Vector Machines (SVM) through a story-driven metaphor of a village divided. Beyond the narrative, we dive into the intuition behind linear SVMs — how they construct a hyperplane that maximizes the geometric margin between two classes. We explain the roles of support vectors, the functional margin, and how the direction vector w governs the orientation and classification confidence. Whether you’re a beginner or brushing up on fundamentals, this piece offers a conceptual bridge between storytelling and math.*
 
 Once upon a time, there was a village called Ascots, a peaceful village where two groups Orange Ascots and Blue Ascots lived happily. But on one tragic day, a fight broke out and the disagreement sparked a tension that couldn't be resolved. They cannot relocate to new place, bloodshed to be avoided and above all the peace had to be restored.
