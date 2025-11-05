@@ -2,6 +2,7 @@
 ---
 layout: home
 title: "The untold story of SVM: A Village Divided (Part 1)"
+tags: [svm, machine learning]
 ---
 
 # "The untold story of SVM: A Village Divided (Part 1)"
