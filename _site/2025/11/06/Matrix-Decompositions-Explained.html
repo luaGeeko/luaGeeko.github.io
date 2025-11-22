@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en"><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Matrix Decompositions Explained - Part I: Eigen Decomposition</title><link rel="stylesheet" href="/assets/main.css"><script>
+  window.MathJax = {
+    tex: {
+      /* add the 'ams' package so \text, \underbrace, etc. work reliably */
+      packages: {'[+]': ['ams']},
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']],
+      /* common macros you might want available (optional) */
+      macros: {
+        // bold vector notation if you like \v or \vecbold in your posts
+        // \v{v} -> \mathbf{v}
+        v: ['{\\mathbf{#1}}', 1]
+      }
+    },
+    options: {
+      skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+  };
+</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script><body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">The Intuitive Machine</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/">Welcome to My Blog</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Matrix Decompositions Explained - Part I: Eigen Decomposition</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2025-11-06T15:30:00+05:30" itemprop="datePublished">Nov 6, 2025
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <h2 id="ever-wondered-why-we-even-need-matrix-decompositions-and-what-they-mean-intuitively">Ever wondered why we even need matrix decompositions and what they mean intuitively ? 🤔</h2>
+<p>In general, decomposition means breaking down something in simpler components.For matrices this is important because it can help us break matrix into simpler building blocks, that tell its story as an object - its <em>hidden structure</em>.</p>
+
+<p><strong>*Not “ingredients” but valid representations</strong></p>
+
+<p>Just to be clear it’s not literally breaking it into “ingredients” that originally created the matrix, but mathematically valid ways that can represent the same matrix in terms of simpler pieces, that can be analysed and manipulated as needed.</p>
+
+<p>There are different ways for doing matrix decomposition but in this part we are going to focus on Eigen decompositions. We are going to investigate matrix - our ‘criminal’ holding secrets. And our objective is to uncover its hidden structure - <code class="language-plaintext highlighter-rouge">eigenvalues</code> telling us how much it scales and <code class="language-plaintext highlighter-rouge">eigenvectors</code> the directions that stay unchanged.</p>
+
+<h2 id="the-eigen-interrogation-good-copbad-coproutine-">The Eigen interrogation: Good Cop/Bad Cop Routine 👮</h2>
+
+<p>We are going to make matrix confess its natural directions and scaling powers, with good cop and bad cop routine:</p>
+
+<ul>
+  <li><strong>Local View (Good Cop)</strong>: test one vector at a time to see if it’s a special direction the matrix only scales.</li>
+  <li><strong>Global View (Bad Cop)</strong>: force the matrix to confess and tell us about its - all eigenvalues and eigenvectors at once - by doing <code class="language-plaintext highlighter-rouge">Matrix Diagonalization</code>.</li>
+</ul>
+
+<p>Before interrogating our <code class="language-plaintext highlighter-rouge">criminal</code> matrix, let me tell you - its <em>symmetric</em> in nature means he will not lie, though it can hold information. Its up to cops to get all the information out.</p>
+
+<p align="center">
+  <img src="/assets/images/matrix_decom_eigen/matrix_decom_eigen_1.png" alt="cops with vector" width="650" />
+</p>
+<p align="center"><em>Eigen-decomposition: Good Cop (left panel) tests one vector at a time, Bad Cop (right panel) makes the matrix confess everything.</em></p>
+
+<h2 id="local-view">Local View</h2>
+<p>Let us take a candidate vector to test but make sure its from the <strong>same space as the martrix</strong>. Ah! a important point we have stumbled upon and needs to be cleared before we move on forward. </p>
+
+<p><strong>Why the “same space” matters?</strong> A matrix $N$ of size $m \times m$ (<strong>a square matrix</strong>) always maps vectors 
+from $\mathbb{R}^m$ back into that same space $\mathbb{R}^m$.</p>
+
+<blockquote>
+  <p><em>For eigenvalue/eigenvector testing we need Av=λv, which means both sides of the equation must “live” in the same dimension.</em></p>
+</blockquote>
+
+<p>If the vector came from a different space, the outputs will not be comparable and that is why the probe vector (our candidate vector) should belong to the same vector space and satisfy the following equation:</p>
+
+\[\underbrace{A}_{\text{Matrix (the criminal)}} 
+\; 
+\underbrace{\mathbf{v}}_{\text{Candidate vector (from same space)}} 
+= 
+\underbrace{\lambda}_{\text{Eigenvalue (stretch or shrink factor)}} 
+\; 
+\underbrace{\mathbf{v}}_{\text{Same vector direction}}\]
+
+<p>So according to our story think of it this way - </p>
+
+<p>When the Good Cop brings in a candidate vector for questioning, it must belong to the same ‘criminal background’ as the matrix. A random innocent bystander (a vector from the wrong space) can’t reveal anything about the matrix’s secrets. Only those who are part of the same world - the same vector space where the matrix operates - can expose whether the matrix preserves their direction or twists them around.</p>
+
+<figure style="text-align:center;">
+  <div style="display:flex; justify-content:center; gap:10px;">
+    <img src="/assets/images/matrix_decom_eigen/matrix_decom_eigen_2.png" alt="Image 1" width="45%" />
+    <img src="/assets/images/matrix_decom_eigen/matrix_decom_eigen_3.png" alt="Image 2" width="45%" />
+  </div>
+  <figcaption><em>Same Space Matters : "Wrong space - wrong suspect."(left panel). "Interrogations only work when they're from the same vector space." (right panel).</em></figcaption>
+</figure>
+
+<p>Lets try to understand the behaviour of our simple symmetric matrix when its introduced with different candidate vectors:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+
+<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+              <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">]])</span>
+</code></pre></div></div>
+<p>Before I mentioned that our symmetric criminal is truthful - it never twists or shears vectors. It only stretches, shrinks or flips (vector direction is same just flipped in opposite way).</p>
+
+<p>Moving on we bring our three suspects from the same vector space:</p>
+<ul>
+  <li>Candidate 1: v1 = [1, 0] -&gt; lies along the x-axis.</li>
+  <li>Candidate 2: v2 = [0, 1] -&gt; lies along the y-axis.</li>
+  <li>Candidate 3: v3 = [1, 1] -&gt; not algined with any of the matrix’s axes.</li>
+</ul>
+
+<p><img src="/assets/images/matrix_decom_eigen/matrix_decom_eigen_4.png" alt="Matrix transforming candidate vectors" /></p>
+
+<p>We observe the behaviour a <strong>symmetric matrix</strong> exhibits under the local view -</p>
+
+<blockquote>
+  <ul>
+    <li><strong>Scaling</strong><br />
+The matrix keeps the directions but changes the length</li>
+    <li><strong>Flipping</strong>
+The matrix just flips the vector but direction remains same (negative eiegenvalue)</li>
+    <li><strong>Direction change</strong> 
+If the matrix changes the direction of the vector, its <strong>not an eigenvector</strong>.</li>
+  </ul>
+</blockquote>
+
+<p>Our Good Cop is doing great job, but its getting cumbersome, progressing slowly - one vector at a time, though he is also discovering how our <em>symmetric criminal matrix</em> behaves but its exhausting. From the far end of interoggation room, the Bad Cop has been watching, his patience is burning and suddenly he snaps.</p>
+
+<blockquote>
+  <p>“Enough of this one-vector nonsense! We’re doing this MY way. Reveal EVERYTHING. All directions and secrets. Right now.”</p>
+</blockquote>
+
+<h2 id="global-view">Global View</h2>
+
+<p>The Bad Cop demands for spilling out the entire structure of the matrix at once - <code class="language-plaintext highlighter-rouge">Diagonalization</code></p>
+
+<p>Instead of asking:</p>
+<blockquote>
+  <p>“How do you treat this vector?””</p>
+</blockquote>
+
+<p>he asks:</p>
+<blockquote>
+  <p><em>“Along which directions do you <strong>ALWAYS</strong> stretch or <strong>ALWAYS</strong> flip, no matter who you transform?”</em></p>
+</blockquote>
+
+\[A \;=\; 
+\underbrace{Q}_{\text{eigenvectors}}
+\;
+\underbrace{\Lambda}_{\text{eigenvalues}}
+\;
+\underbrace{Q^{\mathsf{T}}}_{\text{transpose of }Q}\]
+
+<p>This is <strong>diagonalization</strong>, the global view, the full confession and the moment the entire behaviour of the matrix becomes clear at once.</p>
+
+<p>Before a step further into diagonalization, lets first quickly touch upon the idea of <strong>a change of basis</strong>.
+Sometimes a matrix looks complicated in our standard coordinate system, but if we use the <strong>same transformation</strong> in a difference coordinate system, the things become much simpler to understand.
+Thats the idea behind using a <strong>similarity transformation</strong> - it let’s us describe the same matrix in an new basis where its behaviour is easier to interpret and work with.</p>
+
+<p>Relating this concept back to our story: as the interrogation continues, the Good Cop slightly changes the environment — he walks in with coffee and snacks, hoping to make the criminal matrix a bit more comfortable.
+This small shift is our metaphor for a change of basis:
+sometimes simply changing the perspective or the coordinate system is enough to make the matrix speak more clearly.</p>
+
+<p>So <em>diagonalization is a special case of similarity transformations</em> and below show the equation breakdown:</p>
+
+\[A \;=\; 
+\underbrace{P}_{\text{columns: eigenvectors}}
+\;
+\underbrace{D}_{\text{diagonal matrix of eigenvalues}}
+\;
+\underbrace{P^{-1}}_{\text{change-of-basis back}}\]
+
+<p>Lets take another example and will make it confess through digonalization.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+
+<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+              <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">]])</span>
+</code></pre></div></div>
+<p>on solving the it, we get</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">P</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> 
+        <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+
+<span class="n">D</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+            <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">]])</span>
+</code></pre></div></div>
+
+<p>For easier understanding, the criminal matrix taken is simple, and notice the diagonal eigen values matrix is same as our criminal matrix. Now that the Bad Cop has extracted the full confession,
+the Good Cop returns to verify the behavior using two test vectors:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">vector</span> <span class="mi">1</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+
+<span class="n">vector</span> <span class="mi">2</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+</code></pre></div></div>
+<p>Once the transformation is applied to them below we can how its gets transformed</p>
+<p align="center">
+  <img src="/assets/images/matrix_decom_eigen/matrix_decomp_global_view.png" alt="cops with vector" width="650" />
+</p>
+<p align="center"><em>Global-view: input vector transformation.</em></p>
+
+<p>All code, diagonalization steps, and visualizations are available in the following notebook: <a href="https://github.com/luaGeeko/the-storyverse-journal/blob/main/Matrix_Decompositions.ipynb">Matrix Decompositions Notebook</a></p>
+
+<p>© 2025 Shruti Verma</p>
+
+<p>If this article helped you, feel free to cite or share it — a small mention goes a long way.
+I’d also love to hear your thoughts, suggestions, or feedback.</p>
+
+<p>You can reach me here:
+• <a href="hop2work@gmail.com">Email</a>
+• <a href="https://www.linkedin.com/in/shruti31">LinkedIn</a></p>
+
+  </div><a class="u-url" href="/2025/11/06/Matrix-Decompositions-Explained.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">The Intuitive Machine</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">LuaGeeko</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Thoughts and Stories</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

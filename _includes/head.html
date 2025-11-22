@@ -23,10 +23,18 @@
   MathJax — safe snippet. Keeps inline $...$ and $$...$$ behavior.
 {%- endcomment -%}
 <script>
-  MathJax = {
+  window.MathJax = {
     tex: {
+      /* add the 'ams' package so \text, \underbrace, etc. work reliably */
+      packages: {'[+]': ['ams']},
       inlineMath: [['$', '$'], ['\\(', '\\)']],
-      displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      displayMath: [['$$', '$$'], ['\\[', '\\]']],
+      /* common macros you might want available (optional) */
+      macros: {
+        // bold vector notation if you like \v or \vecbold in your posts
+        // \v{v} -> \mathbf{v}
+        v: ['{\\mathbf{#1}}', 1]
+      }
     },
     options: {
       skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']

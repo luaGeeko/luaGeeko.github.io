@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en"><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>The untold story of SVM: A Village Divided (Part 1)</title><link rel="stylesheet" href="/assets/main.css"><script>
+  window.MathJax = {
+    tex: {
+      /* add the 'ams' package so \text, \underbrace, etc. work reliably */
+      packages: {'[+]': ['ams']},
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']],
+      /* common macros you might want available (optional) */
+      macros: {
+        // bold vector notation if you like \v or \vecbold in your posts
+        // \v{v} -> \mathbf{v}
+        v: ['{\\mathbf{#1}}', 1]
+      }
+    },
+    options: {
+      skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+  };
+</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script><body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">The Intuitive Machine</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/">Welcome to My Blog</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">The untold story of SVM: A Village Divided (Part 1)</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2025-11-04T15:30:00+05:30" itemprop="datePublished">Nov 4, 2025
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <blockquote>
+  <p><em>This post reimagines the mechanics of Support Vector Machines (SVM) through a story-driven metaphor of a village divided. Beyond the narrative, we dive into the intuition behind linear SVMs — how they construct a hyperplane that maximizes the geometric margin between two classes. We explain the roles of support vectors, the functional margin, and how the direction vector w governs the orientation and classification confidence. Whether you’re a beginner or brushing up on fundamentals, this piece offers a conceptual bridge between storytelling and math.</em></p>
+</blockquote>
+
+<p>Once upon a time, there was a village called Ascots, a peaceful village where two groups Orange Ascots and Blue Ascots lived happily. But on one tragic day, a fight broke out and the disagreement sparked a tension that couldn’t be resolved. They cannot relocate to new place, bloodshed to be avoided and above all the peace had to be restored.</p>
+
+<p>Thus, a decision was made by the village’s elder Ascot:</p>
+
+<p>A <strong>boundary must be drawn</strong> — a fence that would separate the two groups as much as possible to avoid any future conflicts.</p>
+
+<h2 id="not-just-distance-but-confidence">Not Just Distance, But Confidence</h2>
+
+<p>One question now troubled the elder:</p>
+
+<blockquote>
+  <p><em><strong>How</strong> should this fence be designed, and <strong>where</strong> exactly should it be built?</em></p>
+</blockquote>
+
+<p>Unsure of the answer, he sought the help of a wise problem solver of the land — <strong>SVM</strong>. Upon accepting the challenge, SVM went for a walk in the village thinking deeply:</p>
+
+<blockquote>
+  <p><em>“If I place a fence, how close will the nearest house be on either side?”</em></p>
+</blockquote>
+
+<p>This thought led to the core idea from a simple concept called the geometric margin :</p>
+
+<ul>
+  <li>the actual distance from the fence (hyperplane) to the closest data point (house).</li>
+  <li>and we want to maximize this margin ➕.</li>
+</ul>
+
+<p>But SVM wasn’t only thinking about <strong>distance</strong>. <em>He also wanted to be <strong>confident</strong> in placing each villager’s house on the correct side of the boundary.</em></p>
+
+<ul>
+  <li>Positive ✅ if they were on the right side of the fence</li>
+  <li>Negative ❌ if not</li>
+</ul>
+
+<p>This is called the functional margin:</p>
+
+<ul>
+  <li>it’s not the physical distance but a <strong>confidence score</strong> — <em>how well the data point (house) was classified and how far (in <strong>sign and scale</strong>) it is from the decision boundary.</em></li>
+</ul>
+
+<p><img src="/assets/images/linear_svm/svm_vilage_github1.png" alt="SVM margin illustration" /></p>
+
+<p>SVM realized to build the best fence, he had to consider both <strong>score</strong> and the <strong>distance</strong>. So he worked out on the plan and visited the houses that matter the most — the <em>ones closest to the boundary</em>, the ones that would support his decision. He also called upon the elder to discuss his strategy.</p>
+
+<h2 id="the-support-vectors">The Support Vectors</h2>
+<p>Ascot the Elder, wanted to understand how the fence was drawn and so SVM explains -</p>
+
+<ul>
+  <li>There could be <strong>multiple fences</strong> (decision boundaries) between two groups.</li>
+  <li>But the <strong>optimal</strong> one he found, makes sure the <strong>distance between the fence and the house of villagers placed on either side of the line is maximum</strong>. That is why he met some of the villagers, calling them — support vectors. The Elder exclaimed:</li>
+</ul>
+
+<blockquote>
+  <p><em>“Ah, so the fence is placed based on the closest villagers to ensure the largest gap between the two groups and actually define where the fence goes!”</em></p>
+</blockquote>
+
+<p><img src="/assets/images/linear_svm/svm_village_github2.png" alt="We need Support Vector" /></p>
+
+<h2 id="the-equation-behind-the-fence">The Equation Behind the Fence</h2>
+<p>SVM now explains about the functional margin equation.</p>
+
+<ul>
+  <li>It represents a <em>hyperplane</em> in geometry — a <em>flat surface</em> (like a line in 2D) that separates the space</li>
+</ul>
+
+<p>The <em>fence isn’t just a line</em>:</p>
+
+<ul>
+  <li>it has a <strong>direction</strong> (which way it’s tilted) ↖️</li>
+  <li>and a <strong>position</strong> (how high or low it sits) ↕️</li>
+</ul>
+
+<p>This is what is called the <strong>functional margin</strong>. It doesn’t just tell us <em>‘how far’</em> — it tells us <em>‘how confident’</em> we are that each villager is on the correct side. It uses:</p>
+
+<ul>
+  <li>the <strong>direction vector</strong> (w) ➡️.</li>
+  <li>and a <strong>bias term (b)</strong> to describe the fence fully.</li>
+  <li>The <strong>direction comes from w</strong>: it tells which way the fence tilts.</li>
+  <li>The <strong>position is adjusted by b</strong>: it shifts the fence up or down.</li>
+</ul>
+
+\[w^T x + b = 0\]
+
+<figure style="text-align:center;">
+  <img src="/assets/images/linear_svm/svm_village_github4.png" alt="Hyperplane Equation xkcd" width="500" />
+  <figcaption><em>Hyperplane Equation Guides.</em></figcaption>
+</figure>
+
+<h2 id="-svm-continues-to-explain">💬 SVM continues to explain:</h2>
+<blockquote>
+  <p><em>“Imagine each villager’s home is a point with two coordinates (x₁, x₂).
+When I multiply that by a direction vector (w₁, w₂), I’m checking how well the house aligns with that direction.
+So now, if the result is positive as per the hyperplane equation, they are to be placed on the positive class — otherwise on the negative class side.”</em></p>
+</blockquote>
+
+<p>Elder looked a bit confused 🤔</p>
+
+<blockquote>
+  <p><em>“Hmm… makes sense, but how do you decide which side is for positive class and which is negative?”</em></p>
+</blockquote>
+
+\[y =
+\begin{cases}
++1, &amp; \text{if } w^T x + b &gt; 0 \\
+-1, &amp; \text{if } w^T x + b &lt; 0
+\end{cases}\]
+
+<figure style="text-align:center;">
+  <img src="/assets/images/linear_svm/svm_village_github5.png" alt="Door fence xkcd" width="500" />
+  <figcaption><em>Door in the fence.</em></figcaption>
+</figure>
+
+<p>SVM explained, with simple analogy of <strong>door-in-the-fence</strong>, <em>“Imagine this fence has door in it and the door swings open in the direction of <strong>w</strong>. The side it opens towards is the positive class. The side it swings away from is the negative class.”</em></p>
+
+<p>Lets try to understand concepts till here by taking small data and applying linear svm using scikit-learn.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">svm</span>
+
+<span class="c1"># lets take some sample points for 2 classes
+</span><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span>
+    <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>  <span class="c1"># Class +1
+</span>    <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>  <span class="c1"># Class -1
+</span>    <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
+<span class="p">])</span>
+
+<span class="c1"># define true labels
+</span><span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="n">clf</span> <span class="o">=</span> <span class="n">svm</span><span class="p">.</span><span class="n">SVC</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s">'linear'</span><span class="p">)</span>
+<span class="c1"># fit to our sample data
+</span><span class="n">clf</span><span class="p">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+<span class="c1"># extracting w and b
+</span><span class="n">w</span> <span class="o">=</span> <span class="n">clf</span><span class="p">.</span><span class="n">coef_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">clf</span><span class="p">.</span><span class="n">intercept_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+</code></pre></div></div>
+
+<p>Here we get <strong>w: [-0.33333333 -0.33333333]</strong>, where w[0] corresponds to x-axis (think of 1st feature) and w[1] corresponds to y-axis (2nd feature). Next let’s try plotting the points with decision boundary and margin lines.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="n">plt</span><span class="p">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">y</span><span class="o">==</span><span class="mi">1</span><span class="p">][:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[</span><span class="n">y</span><span class="o">==</span><span class="mi">1</span><span class="p">][:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s">'orange'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">'Class +1 (Orange Ascots)'</span><span class="p">,</span> <span class="n">edgecolors</span><span class="o">=</span><span class="s">'k'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">y</span><span class="o">==-</span><span class="mi">1</span><span class="p">][:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[</span><span class="n">y</span><span class="o">==-</span><span class="mi">1</span><span class="p">][:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s">'blue'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">'Class -1 (Blue Ascots)'</span><span class="p">,</span> <span class="n">edgecolors</span><span class="o">=</span><span class="s">'k'</span><span class="p">)</span>
+
+<span class="c1"># for decision boundary - smooth continuous line lets take points from linspace
+</span><span class="n">x_vals</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="c1"># compute decsion boundary values
+</span><span class="n">y_vals</span> <span class="o">=</span> <span class="o">-</span><span class="p">(</span><span class="n">w</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">x_vals</span> <span class="o">+</span> <span class="n">b</span><span class="p">)</span> <span class="o">/</span> <span class="n">w</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="c1"># compute margin distance from descision boundary to support vectors
+</span><span class="n">margin</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">np</span><span class="p">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="nb">sum</span><span class="p">(</span><span class="n">w</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span>
+<span class="c1"># we will margin on both the sides 
+</span><span class="n">y_margin_pos</span> <span class="o">=</span> <span class="n">y_vals</span> <span class="o">+</span> <span class="n">margin</span>
+<span class="n">y_margin_neg</span> <span class="o">=</span> <span class="n">y_vals</span> <span class="o">-</span> <span class="n">margin</span>
+
+<span class="c1"># now lets plot them
+</span><span class="n">plt</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_vals</span><span class="p">,</span> <span class="n">y_vals</span><span class="p">,</span> <span class="s">'k-'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">'Decision Boundary'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_vals</span><span class="p">,</span> <span class="n">y_margin_pos</span><span class="p">,</span> <span class="s">'k--'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">'Margin (+1)'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_vals</span><span class="p">,</span> <span class="n">y_margin_neg</span><span class="p">,</span> <span class="s">'k--'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">'Margin (-1)'</span><span class="p">)</span>
+
+<span class="c1"># legend and labels
+</span><span class="n">plt</span><span class="p">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">"Linear SVM with Decision Boundary and Margins"</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">"Feature 1"</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">"Feature 2"</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">grid</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+
+</code></pre></div></div>
+
+<p>Now SVM wants us to try out a new point [2.5, 2.5] and see to what class it gets assigned to.s</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># lets test a new point
+</span><span class="n">test_point</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="mf">2.5</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">])</span>
+<span class="c1"># our decision boundary equation
+</span><span class="n">svm_score</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">dot</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">test_point</span><span class="p">)</span> <span class="o">+</span> <span class="n">b</span>
+<span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"Functional margin: </span><span class="si">{</span><span class="n">svm_score</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>The gives out svm score as 1 and gets class output of +1.</p>
+
+<p>Elder asks <em>“Oh, interesting — that makes sense now! But when you explained the direction of w with the door-in-the-fence analogy, what if <strong>w</strong> points in the opposite direction? Does that mean the door opens the other way — and the classes get switched?”</em></p>
+
+<p>SVM replies <em>“Exactly! When w points in the opposite direction, the decision boundary stays the same, but the classification flips — what was once the positive side becomes negative, and vice versa.” The below plot shows how flipping w and b changes <strong>classification results</strong>, even though the geometric boundary doesn’t move.</em></p>
+
+<p><img src="/assets/images/linear_svm/svm_village_github6.png" alt="Decision Boundary w and b" /></p>
+
+<p>You can find the proper code for the above here <a href="https://github.com/luaGeeko/the-storyverse-journal/blob/main/SVM_tutorial.ipynb">SVM notebook</a></p>
+
+<p>Now wrapping up Part 1, where we laid the foundation by understanding the <strong>functional margin</strong> and <strong>geometric margin</strong> — two crucial concepts that help us measure how well our Support Vector Machine (SVM) separates classes with maximum confidence. In the next part, we’ll take this a step further and explore how to <strong>optimize</strong> the decision boundary to, introduce the role of constraints in this optimization, and uncover the difference between <strong>hard and soft margins</strong> — essential ideas in SVMs.</p>
+
+<p>© 2025 Shruti Verma</p>
+
+<p>If this article helped you, feel free to cite or share it — a small mention goes a long way.
+I’d also love to hear your thoughts, suggestions, or feedback.</p>
+
+<p>You can reach me here:
+• <a href="hop2work@gmail.com">Email</a>
+• <a href="https://www.linkedin.com/in/shruti31">LinkedIn</a></p>
+
+  </div><a class="u-url" href="/2025/11/04/The-untold-story-of-SVM.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">The Intuitive Machine</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">LuaGeeko</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Thoughts and Stories</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

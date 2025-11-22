@@ -169,7 +169,7 @@ plt.show()
 
 ```
 
-Now SVM wants us to try out a new point [2.5, 2.5] and see to what class it gets assigned to.
+Now SVM wants us to try out a new point [2.5, 2.5] and see to what class it gets assigned to.s
 
 ```python
 # lets test a new point
@@ -187,12 +187,16 @@ SVM replies *“Exactly! When w points in the opposite direction, the decision b
 
 ![Decision Boundary w and b](/assets/images/linear_svm/svm_village_github6.png)
 
-You can find the proper code for the above here https://github.com/luaGeeko/MediumMLToons/blob/main/SVM_tutorial.ipynb.
+You can find the proper code for the above here [SVM notebook](https://github.com/luaGeeko/the-storyverse-journal/blob/main/SVM_tutorial.ipynb)
 
 Now wrapping up Part 1, where we laid the foundation by understanding the **functional margin** and **geometric margin** — two crucial concepts that help us measure how well our Support Vector Machine (SVM) separates classes with maximum confidence. In the next part, we’ll take this a step further and explore how to **optimize** the decision boundary to, introduce the role of constraints in this optimization, and uncover the difference between **hard and soft margins** — essential ideas in SVMs.
 
-© 2025 Shruti Verma. All rights reserved.
 
-This blog and its contents are protected under the Creative Commons
-Attribution-NonCommercial-NoDerivatives 4.0 International License.
-See [LICENSE](LICENSE) for details.
+© 2025 Shruti Verma
+
+If this article helped you, feel free to cite or share it — a small mention goes a long way.
+I’d also love to hear your thoughts, suggestions, or feedback.
+
+You can reach me here:
+• [Email](hop2work@gmail.com)
+• [LinkedIn](https://www.linkedin.com/in/shruti31)

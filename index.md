@@ -3,7 +3,7 @@ layout: home
 title: "Welcome to My Blog"
 ---
 
-Hi 👋 I'm Lua
+Hi 👋 I'm Shruti
 
 🧠 Topics I write about:
 - Machine Learning, Deep Learning
