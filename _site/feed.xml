@@ -1,4 +1,57 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-11-22T20:02:01+05:30</updated><id>http://localhost:4000/feed.xml</id><title type="html">The Intuitive Machine</title><subtitle>Thoughts and Stories</subtitle><author><name>LuaGeeko</name></author><entry><title type="html">Matrix Decompositions Explained - Part I: Eigen Decomposition</title><link href="http://localhost:4000/2025/11/06/Matrix-Decompositions-Explained.html" rel="alternate" type="text/html" title="Matrix Decompositions Explained - Part I: Eigen Decomposition" /><published>2025-11-06T15:30:00+05:30</published><updated>2025-11-06T15:30:00+05:30</updated><id>http://localhost:4000/2025/11/06/Matrix-Decompositions-Explained</id><content type="html" xml:base="http://localhost:4000/2025/11/06/Matrix-Decompositions-Explained.html"><![CDATA[<h2 id="ever-wondered-why-we-even-need-matrix-decompositions-and-what-they-mean-intuitively">Ever wondered why we even need matrix decompositions and what they mean intuitively ? 🤔</h2>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-12-02T22:05:48+05:30</updated><id>http://localhost:4000/feed.xml</id><title type="html">The Intuitive Machine</title><subtitle>Thoughts and Stories</subtitle><author><name>LuaGeeko</name></author><entry><title type="html">Ben discovers the Omnitrix of Uncertainty: Intro to Probability &amp;amp; Random Variables</title><link href="http://localhost:4000/2025/11/19/Ben-discovers-the-Omnitrix-of-Uncertainity.html" rel="alternate" type="text/html" title="Ben discovers the Omnitrix of Uncertainty: Intro to Probability &amp;amp; Random Variables" /><published>2025-11-19T15:30:00+05:30</published><updated>2025-11-19T15:30:00+05:30</updated><id>http://localhost:4000/2025/11/19/Ben-discovers-the-Omnitrix-of-Uncertainity</id><content type="html" xml:base="http://localhost:4000/2025/11/19/Ben-discovers-the-Omnitrix-of-Uncertainity.html"><![CDATA[<p><img src="/assets/images/probability/20251119_2050_ben_header.png" alt="Omnitrix Header Banner" class="header-image" /></p>
+
+<p>Probablitity helps us <em>quantify uncertainity before something happens</em>. In our uncertain world, our daily decisions often rely on estimating how likely an event is to occur or not. Unexpected situations pop up out of nowhere-just like Ben on road trip with Grandpa and his sister Gwen. While wandering in forest, spots what seems like a shooting star, but instead it crashes nearby. Inside the crater lies a strange capsule containing a cool and glowing watch that latches onto Ben the moment he reaches for it: <strong>the Omnitrix</strong></p>
+
+<h2 id="sample-space">Sample Space</h2>
+
+<p>Now that the Omnitrix is on his wrist, he wanted to experiment and pushes the core down and <em>boom</em>-he transforms into <strong>Heatblast</strong>. Lets understand this from perspective of probability terms, imagine the Omnitrix as holding onto a <code class="language-plaintext highlighter-rouge">sample space</code>: a complete set of <strong>all possible outcomes</strong> that can occur when Ben activates it.</p>
+
+<p><strong>The Omnitrix’s contains full catalog of aliens == <em>SAMPLE SPACE</em></strong></p>
+
+<h2 id="random-variable-rv">Random Variable (R.V)</h2>
+
+<p>Now when he pressed the Omnitrix (think this as one experiment), to try out, transformation to one of the alien can be thought as <strong>one outcome</strong> from the sample space.</p>
+
+<p>But how do I quantify my outcomes, say I want to measure or compare one outcome to another, I need some numerical number attached to it. For example in Ben’s case, outcomes like “Heatblast”, “Four Arms”, “Diamondhead” are not numbers. I need some function-a mapping- that assigns a <strong>real number</strong> to each outcome.</p>
+
+\[A\ \text{random variable is a function } 
+X : \Omega \rightarrow \mathbb{R}\]
+
+\[X(\omega) = \text{a real number for each outcome } \omega \in \Omega.\]
+
+\[X = 
+\begin{cases}
+1 &amp; \text{if outcome = Heatblast},\\
+2 &amp; \text{if outcome = Four Arms},\\
+3 &amp; \text{if outcome = Diamondhead},\\
+\vdots &amp; 
+\end{cases}\]
+
+<h2 id="probability-distribution">Probability Distribution</h2>
+<p>Now that we know how the Omnitrix holds a <em>full sample space of alien forms</em>, the next question to ponder on is - <strong>How uncertainity is distributed over all possible values the random variable can take?</strong></p>
+
+<p>In our case <strong>How likely is Ben to transform into each alien when he activates it?</strong> And this brings the concept of <em>probability distribution</em>. A simple way that tells us how probability is assigned to each possible outcome in our sample space.</p>
+
+<p>In Ben’s world:</p>
+<ul>
+  <li>Heatblast might appear more often,</li>
+  <li>Four Arms might be less frequent,</li>
+  <li>Some alien might rarely come out.</li>
+</ul>
+
+<p>This gives us a rule that assigns a probability to every outcome. In the next part of the series, we will go a bit deeper and understand <strong>PMF</strong> - for discrete outcomes like alien forms, <strong>PDF</strong> - for continuous cases and CDF.</p>
+
+<p>© 2025 Shruti Verma</p>
+
+<p>If this post helped you, feel free to cite or share it. 
+This article is part of the “Ben 10 Probability Series.” 
+Feedback, ideas, or corrections? I’d love to hear from you.</p>
+
+<p>You can reach me here:
+• <a href="hop2work@gmail.com">Email</a>
+• <a href="https://www.linkedin.com/in/shruti31">LinkedIn</a></p>]]></content><author><name>LuaGeeko</name></author><category term="probability" /><category term="random-variables" /><category term="information-theory" /><category term="ben10-analogy" /><summary type="html"><![CDATA[Step inside the Omnitrix and see probability theory come alive through Ben 10]]></summary></entry><entry><title type="html">Matrix Decompositions Explained - Part I: Eigen Decomposition</title><link href="http://localhost:4000/2025/11/06/Matrix-Decompositions-Explained.html" rel="alternate" type="text/html" title="Matrix Decompositions Explained - Part I: Eigen Decomposition" /><published>2025-11-06T15:30:00+05:30</published><updated>2025-11-06T15:30:00+05:30</updated><id>http://localhost:4000/2025/11/06/Matrix-Decompositions-Explained</id><content type="html" xml:base="http://localhost:4000/2025/11/06/Matrix-Decompositions-Explained.html"><![CDATA[<p><img src="/assets/images/matrix_decom_eigen/decomp_bad_good_cop_header.png" alt="Omnitrix Header Banner" class="header-image" /></p>
+
+<h2 id="ever-wondered-why-we-even-need-matrix-decompositions-and-what-they-mean-intuitively">Ever wondered why we even need matrix decompositions and what they mean intuitively ? 🤔</h2>
 <p>In general, decomposition means breaking down something in simpler components.For matrices this is important because it can help us break matrix into simpler building blocks, that tell its story as an object - its <em>hidden structure</em>.</p>
 
 <p><strong>*Not “ingredients” but valid representations</strong></p>
@@ -159,6 +212,20 @@ the Good Cop returns to verify the behavior using two test vectors:</p>
 <p align="center"><em>Global-view: input vector transformation.</em></p>
 
 <p>All code, diagonalization steps, and visualizations are available in the following notebook: <a href="https://github.com/luaGeeko/the-storyverse-journal/blob/main/Matrix_Decompositions.ipynb">Matrix Decompositions Notebook</a></p>
+
+<p>So far our Cops did a great job in taking out information from a <strong>well-behaved criminal matrix</strong>- a neat, square one that confessed cleanly through eigenvalues and eigenvectors…<strong>but real criminals aren’t always square.</strong></p>
+
+<p>So what if the matrix isn’t square at all ?
+What if it holds <strong>hidden behaviour that eigen decomposition alone can’t expose?</strong></p>
+
+<p align="center">
+  <img src="/assets/images/matrix_decom_eigen/eigen_decom_svd_init.png" alt="cops with vector" width="650" />
+</p>
+<p align="center"><em>Next Case: Singular Value Decomposition.</em></p>
+
+<p>In the next part, we need to upgrade our investigation, pushing through will be needed for breaking the criminal. We are going to look into <strong>Singular Value Decomposition(SVD)</strong>- think it as tool our cop detectives are going to use to make criminal confess that refused to be square, simple or honest.</p>
+
+<p>Stay tuned as we open the next case file and bring the entire SVD task force into the interrogation room.</p>
 
 <p>© 2025 Shruti Verma</p>
 

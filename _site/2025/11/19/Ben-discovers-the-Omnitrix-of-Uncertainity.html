@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en"><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Ben discovers the Omnitrix of Uncertainty: Intro to Probability & Random Variables</title><link rel="stylesheet" href="/assets/main.css"><script>
+  window.MathJax = {
+    tex: {
+      /* add the 'ams' package so \text, \underbrace, etc. work reliably */
+      packages: {'[+]': ['ams']},
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']],
+      /* common macros you might want available (optional) */
+      macros: {
+        // bold vector notation if you like \v or \vecbold in your posts
+        // \v{v} -> \mathbf{v}
+        v: ['{\\mathbf{#1}}', 1]
+      }
+    },
+    options: {
+      skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+  };
+</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script><body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">The Intuitive Machine</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/">Welcome to My Blog</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Ben discovers the Omnitrix of Uncertainty: Intro to Probability &amp; Random Variables</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2025-11-19T15:30:00+05:30" itemprop="datePublished">Nov 19, 2025
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p><img src="/assets/images/probability/20251119_2050_ben_header.png" alt="Omnitrix Header Banner" class="header-image" /></p>
+
+<p>Probablitity helps us <em>quantify uncertainity before something happens</em>. In our uncertain world, our daily decisions often rely on estimating how likely an event is to occur or not. Unexpected situations pop up out of nowhere-just like Ben on road trip with Grandpa and his sister Gwen. While wandering in forest, spots what seems like a shooting star, but instead it crashes nearby. Inside the crater lies a strange capsule containing a cool and glowing watch that latches onto Ben the moment he reaches for it: <strong>the Omnitrix</strong></p>
+
+<h2 id="sample-space">Sample Space</h2>
+
+<p>Now that the Omnitrix is on his wrist, he wanted to experiment and pushes the core down and <em>boom</em>-he transforms into <strong>Heatblast</strong>. Lets understand this from perspective of probability terms, imagine the Omnitrix as holding onto a <code class="language-plaintext highlighter-rouge">sample space</code>: a complete set of <strong>all possible outcomes</strong> that can occur when Ben activates it.</p>
+
+<p><strong>The Omnitrix’s contains full catalog of aliens == <em>SAMPLE SPACE</em></strong></p>
+
+<h2 id="random-variable-rv">Random Variable (R.V)</h2>
+
+<p>Now when he pressed the Omnitrix (think this as one experiment), to try out, transformation to one of the alien can be thought as <strong>one outcome</strong> from the sample space.</p>
+
+<p>But how do I quantify my outcomes, say I want to measure or compare one outcome to another, I need some numerical number attached to it. For example in Ben’s case, outcomes like “Heatblast”, “Four Arms”, “Diamondhead” are not numbers. I need some function-a mapping- that assigns a <strong>real number</strong> to each outcome.</p>
+
+\[A\ \text{random variable is a function } 
+X : \Omega \rightarrow \mathbb{R}\]
+
+\[X(\omega) = \text{a real number for each outcome } \omega \in \Omega.\]
+
+\[X = 
+\begin{cases}
+1 &amp; \text{if outcome = Heatblast},\\
+2 &amp; \text{if outcome = Four Arms},\\
+3 &amp; \text{if outcome = Diamondhead},\\
+\vdots &amp; 
+\end{cases}\]
+
+<h2 id="probability-distribution">Probability Distribution</h2>
+<p>Now that we know how the Omnitrix holds a <em>full sample space of alien forms</em>, the next question to ponder on is - <strong>How uncertainity is distributed over all possible values the random variable can take?</strong></p>
+
+<p>In our case <strong>How likely is Ben to transform into each alien when he activates it?</strong> And this brings the concept of <em>probability distribution</em>. A simple way that tells us how probability is assigned to each possible outcome in our sample space.</p>
+
+<p>In Ben’s world:</p>
+<ul>
+  <li>Heatblast might appear more often,</li>
+  <li>Four Arms might be less frequent,</li>
+  <li>Some alien might rarely come out.</li>
+</ul>
+
+<p>This gives us a rule that assigns a probability to every outcome. In the next part of the series, we will go a bit deeper and understand <strong>PMF</strong> - for discrete outcomes like alien forms, <strong>PDF</strong> - for continuous cases and CDF.</p>
+
+<p>© 2025 Shruti Verma</p>
+
+<p>If this post helped you, feel free to cite or share it. 
+This article is part of the “Ben 10 Probability Series.” 
+Feedback, ideas, or corrections? I’d love to hear from you.</p>
+
+<p>You can reach me here:
+• <a href="hop2work@gmail.com">Email</a>
+• <a href="https://www.linkedin.com/in/shruti31">LinkedIn</a></p>
+
+  </div><a class="u-url" href="/2025/11/19/Ben-discovers-the-Omnitrix-of-Uncertainity.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">The Intuitive Machine</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">LuaGeeko</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Thoughts and Stories</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

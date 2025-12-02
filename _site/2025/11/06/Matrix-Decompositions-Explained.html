@@ -48,7 +48,9 @@
   </header>
 
   <div class="post-content e-content" itemprop="articleBody">
-    <h2 id="ever-wondered-why-we-even-need-matrix-decompositions-and-what-they-mean-intuitively">Ever wondered why we even need matrix decompositions and what they mean intuitively ? 🤔</h2>
+    <p><img src="/assets/images/matrix_decom_eigen/decomp_bad_good_cop_header.png" alt="Omnitrix Header Banner" class="header-image" /></p>
+
+<h2 id="ever-wondered-why-we-even-need-matrix-decompositions-and-what-they-mean-intuitively">Ever wondered why we even need matrix decompositions and what they mean intuitively ? 🤔</h2>
 <p>In general, decomposition means breaking down something in simpler components.For matrices this is important because it can help us break matrix into simpler building blocks, that tell its story as an object - its <em>hidden structure</em>.</p>
 
 <p><strong>*Not “ingredients” but valid representations</strong></p>
@@ -209,6 +211,20 @@ the Good Cop returns to verify the behavior using two test vectors:</p>
 <p align="center"><em>Global-view: input vector transformation.</em></p>
 
 <p>All code, diagonalization steps, and visualizations are available in the following notebook: <a href="https://github.com/luaGeeko/the-storyverse-journal/blob/main/Matrix_Decompositions.ipynb">Matrix Decompositions Notebook</a></p>
+
+<p>So far our Cops did a great job in taking out information from a <strong>well-behaved criminal matrix</strong>- a neat, square one that confessed cleanly through eigenvalues and eigenvectors…<strong>but real criminals aren’t always square.</strong></p>
+
+<p>So what if the matrix isn’t square at all ?
+What if it holds <strong>hidden behaviour that eigen decomposition alone can’t expose?</strong></p>
+
+<p align="center">
+  <img src="/assets/images/matrix_decom_eigen/eigen_decom_svd_init.png" alt="cops with vector" width="650" />
+</p>
+<p align="center"><em>Next Case: Singular Value Decomposition.</em></p>
+
+<p>In the next part, we need to upgrade our investigation, pushing through will be needed for breaking the criminal. We are going to look into <strong>Singular Value Decomposition(SVD)</strong>- think it as tool our cop detectives are going to use to make criminal confess that refused to be square, simple or honest.</p>
+
+<p>Stay tuned as we open the next case file and bring the entire SVD task force into the interrogation room.</p>
 
 <p>© 2025 Shruti Verma</p>
 

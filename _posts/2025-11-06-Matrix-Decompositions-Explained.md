@@ -6,6 +6,8 @@ tags: [linear algebra, machine learning]
 excerpt: "The Good Cop - Bad Cop Routine."
 ---
 
+![Omnitrix Header Banner](/assets/images/matrix_decom_eigen/decomp_bad_good_cop_header.png){:class="header-image"}
+
 ## Ever wondered why we even need matrix decompositions and what they mean intuitively ? 🤔
 In general, decomposition means breaking down something in simpler components.For matrices this is important because it can help us break matrix into simpler building blocks, that tell its story as an object - its *hidden structure*.
 
@@ -166,6 +168,19 @@ Once the transformation is applied to them below we can how its gets transformed
 
 All code, diagonalization steps, and visualizations are available in the following notebook: [Matrix Decompositions Notebook](https://github.com/luaGeeko/the-storyverse-journal/blob/main/Matrix_Decompositions.ipynb)
 
+So far our Cops did a great job in taking out information from a **well-behaved criminal matrix**- a neat, square one that confessed cleanly through eigenvalues and eigenvectors...**but real criminals aren't always square.** 
+
+So what if the matrix isn't square at all ?
+What if it holds **hidden behaviour that eigen decomposition alone can't expose?**
+
+<p align="center">
+  <img src="/assets/images/matrix_decom_eigen/eigen_decom_svd_init.png" alt="cops with vector" width="650">
+</p>
+<p align="center"><em>Next Case: Singular Value Decomposition.</em></p>
+
+In the next part, we need to upgrade our investigation, pushing through will be needed for breaking the criminal. We are going to look into **Singular Value Decomposition(SVD)**- think it as tool our cop detectives are going to use to make criminal confess that refused to be square, simple or honest.
+
+Stay tuned as we open the next case file and bring the entire SVD task force into the interrogation room.
 
 
 
